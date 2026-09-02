@@ -1,0 +1,42 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.kafkatopicfeedbackloopcompanion</id>
+    <name>Kafka Topic Feedback-Loop Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Flags a Spring Kafka <code>@KafkaListener</code> method whose
+        OWN transitive call graph (same class, or one injected
+        collaborator, UNBOUNDED depth, cycle-protected -- not a fixed
+        hop limit) reaches a <code>.send(...)</code> back to the SAME
+        topic it consumes -- a real self-feeding/"poison pill" loop
+        that can saturate an entire consumer group under load,
+        documented as a real anti-pattern in Confluent's own guides on
+        avoiding cyclic topic dependencies.</p>
+        <p>Never just "a producer and a consumer of the same topic
+        exist somewhere in the project" -- that alone proves nothing;
+        the real path back, resolved via a genuine whole-project call
+        graph, is what this plugin confirms.</p>
+        <p>Stated honestly: v0.1 only Spring Kafka's
+        <code>@KafkaListener</code> (consumer side) and
+        <code>KafkaTemplate.send(...)</code>/
+        <code>KafkaProducer.send(new ProducerRecord&lt;&gt;(...))</code>
+        (producer side), string-literal topic names only; a manual
+        <code>KafkaConsumer.subscribe(...)</code> poll-loop consumer is
+        out of scope (a different angle already covered by this
+        catalog's own Kafka Premature Offset Commit Companion).</p>
+        <p>Free. No license nags, no telemetry, no network calls.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language="JAVA"
+            groupName="Kafka Topic Feedback-Loop Companion"
+            displayName="Kafka listener transitively produces back to its own topic"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="dev.gaphunter.kafkatopicfeedbackloopcompanion.inspection.KafkaFeedbackLoopInspection"/>
+        <notificationGroup id="Kafka Topic Feedback-Loop Companion" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
