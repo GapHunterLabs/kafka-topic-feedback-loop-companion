@@ -51,10 +51,12 @@ Open a Java class with a `@KafkaListener(topics = "orders")` method
 whose call chain eventually sends back to `"orders"` -- the
 `@KafkaListener` annotation shows a warning.
 
-## Enterprise / Team Licensing
+## Support
 
-Need enterprise features, custom rules, or team licensing? Contact us at
-**gaphunterlabs@gmail.com**.
+- **Bugs and feature requests:** [GitHub Issues](https://github.com/GapHunterLabs/kafka-topic-feedback-loop-companion/issues)
+- **Questions, or custom rules for a team's codebase:** **gaphunterlabs@gmail.com**
+- **Security vulnerabilities:** report privately as described in [SECURITY.md](SECURITY.md), not in a public issue.
+- **Privacy and network behavior:** [PRIVACY.md](PRIVACY.md)
 
 ## Development
 
