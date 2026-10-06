@@ -1,0 +1,9 @@
+<html>
+<body>
+Reports a Spring Kafka <code>@KafkaListener</code> method whose own call graph (the same class or an injected
+collaborator, at any depth, with cycle protection) reaches a <code>.send(...)</code> to the topic it consumes.
+<!-- tooltip end -->
+<p>The listener feeds its own topic, a loop that can saturate the consumer group under load. A producer and a
+consumer of the same topic somewhere in the project are not enough to be reported: the path back has to exist.</p>
+</body>
+</html>
